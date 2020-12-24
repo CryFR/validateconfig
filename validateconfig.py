@@ -106,6 +106,6 @@ with open(config_path) as f:
         if entry_args:
             # Проверка на соответствие конфигурации
             # текущим параметрам системы
-            if tasks[entry_args[1]][0](entry_args):
+            if not(tasks[entry_args[1]][0](entry_args)):
                 # Сообщение о непрохождении проверки
                 print(f"Fail in line {line}: {entry.strip()}")
