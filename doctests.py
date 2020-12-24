@@ -1,5 +1,6 @@
 import pathlib
 import doctest
+import hashlib
 
 
 def vfile(args):  # file - проверка наличия имени файла
@@ -24,6 +25,27 @@ def vfile(args):  # file - проверка наличия имени файла
             return True
         else:
             return False
+
+
+def vhash(args):  # hash
+    """
+    >>> vhash([True, 'hash', '546e4328ddf422043a45c460e5f8fe3cd93db06a', 'abs.txt'])
+    True
+    >>> vhash([True, 'hash', '646e4328ddf422043a45c460e5f8fe3cd93db06a', 'abs.txt'])
+    False
+    >>> vhash([False, 'hash', '546e4328ddf422043a45c460e5f8fe3cd93db06a', 'abs.txt'])
+    True
+    >>> vhash([False, 'hash', '646e4328ddf422043a45c460e5f8fe3cd93db06a', 'abs.txt'])
+    False
+    """
+    a = hashlib.sha1()
+    with open(args[3], "rb") as fh:
+        data = fh.read()
+        a.update(data)
+    if a.hexdigest() == args[2]:
+        return True
+    else:
+        return False
 
 
 doctest.testmod()
